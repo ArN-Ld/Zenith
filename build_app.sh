@@ -27,7 +27,7 @@ rm -rf "$APP_BUNDLE"
 mkdir -p "$MACOS_DIR" "$RESOURCES" "$PYTHON_BUNDLE"
 
 # 3. Copy binary
-cp .build/release/VPNTools "$MACOS_DIR/$APP_NAME"
+cp .build/release/Zenith "$MACOS_DIR/$APP_NAME"
 
 # 4. Info.plist
 cat > "$CONTENTS/Info.plist" << 'EOF'
@@ -62,8 +62,8 @@ cat > "$CONTENTS/Info.plist" << 'EOF'
 EOF
 
 # Copy app icon
-if [ -f "$SCRIPT_DIR/Zenith.icns" ]; then
-    cp "$SCRIPT_DIR/Zenith.icns" "$RESOURCES/Zenith.icns"
+if [ -f "$SCRIPT_DIR/Resources/Zenith.icns" ]; then
+    cp "$SCRIPT_DIR/Resources/Zenith.icns" "$RESOURCES/Zenith.icns"
 fi
 
 # 5. Bundle Python source code

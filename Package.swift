@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "VPNTools",
+    name: "Zenith",
     platforms: [.macOS(.v14)],
     targets: [
         .executableTarget(
-            name: "VPNTools",
-            path: "VPNTools",
+            name: "Zenith",
+            path: "Sources/Zenith",
             resources: [.process("Assets.xcassets")]
         )
     ]
