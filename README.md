@@ -97,7 +97,7 @@ app. Zenith invokes it as a subprocess and consumes its `--machine-readable` JSO
 | Speed test logic | `vpn-tools` — `mullvad_speed_test.py` |
 | Server coordinates | `vpn-tools` — `data/coordinates.json` |
 | MTR / ping fallback | `vpn-tools` |
-| JSON protocol spec | `vpn-tools` — `docs/CHANGELOG.md` |
+| JSON protocol spec | `vpn-tools` — `CHANGELOG.md` |
 | macOS UI, menu bar | This project |
 | Subprocess launch & parsing | `SpeedTestRunner.swift` |
 | Dependency checks | `DependencyManager.swift` |
@@ -110,26 +110,42 @@ app. Zenith invokes it as a subprocess and consumes its `--machine-readable` JSO
 Zenith/
 ├── Package.swift
 ├── build_app.sh              ← release build + bundle
-├── generate_icon.py          ← regenerate app icon (requires Pillow)
 ├── CHANGELOG.md
-├── DEVLOG.md                 ← full phase-by-phase dev history
-└── VPNTools/
+├── docs/
+│   └── DEVLOG.md             ← full phase-by-phase dev history
+├── scripts/
+│   └── generate_icon.py      ← regenerate app icon (requires Pillow)
+├── Resources/
+│   └── Zenith.icns
+└── Sources/Zenith/
     ├── VPNToolsApp.swift
     ├── Models/
     │   ├── SpeedTestModels.swift
     │   └── SpeedTestViewModel.swift
     ├── Services/
+    │   ├── DependencyManager.swift
+    │   ├── LocationResolver.swift
     │   ├── SpeedTestRunner.swift
-    │   └── DependencyManager.swift
+    │   └── UpdateChecker.swift
     └── Views/
+        ├── AboutView.swift
         ├── ContentView.swift
         ├── MenuBarView.swift
+        ├── PreflightCheckView.swift
         ├── ResultsView.swift
         ├── SettingsView.swift
-        ├── AboutView.swift
-        ├── PreflightCheckView.swift
         └── StartupPreflightView.swift
 ```
+
+---
+
+## Documentation
+
+Full user documentation is on the **[Wiki](https://github.com/ArN-Ld/Zenith/wiki)**:
+
+- [Installation](https://github.com/ArN-Ld/Zenith/wiki/Installation)
+- [User Guide](https://github.com/ArN-Ld/Zenith/wiki/User-Guide)
+- [Troubleshooting](https://github.com/ArN-Ld/Zenith/wiki/Troubleshooting)
 
 ---
 
@@ -141,7 +157,7 @@ Bug reports and feature requests welcome via [GitHub Issues](https://github.com/
 - macOS UI / Swift changes → this repo
 
 When `vpn-tools` ships a protocol change, update `SpeedTestRunner.swift` and
-`SpeedTestModels.swift`, then document the change in `DEVLOG.md` under a new phase
+`SpeedTestModels.swift`, then document the change in `docs/DEVLOG.md` under a new phase
 with a `> Prérequis vpn-tools :` note.
 
 ---
