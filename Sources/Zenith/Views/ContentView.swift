@@ -145,6 +145,12 @@ struct HeaderView: View {
                             .font(.caption.monospaced())
                             .lineLimit(1)
                             .truncationMode(.middle)
+                        if !vm.currentServerContinent.isEmpty {
+                            Text("\u{00B7} \(vm.currentServerContinent)")
+                                .font(.caption2)
+                                .foregroundStyle(.cyan)
+                                .lineLimit(1)
+                        }
                         Spacer()
                         if let start = vm.currentTestStartTime {
                             TimelineView(.periodic(from: start, by: 1)) { tl in
@@ -155,14 +161,9 @@ struct HeaderView: View {
                             }
                         }
                     }
-                    // Metadata: continent + distance
-                    HStack(spacing: 8) {
-                        if !vm.currentServerContinent.isEmpty {
-                            Label(vm.currentServerContinent, systemImage: "globe")
-                                .font(.caption2)
-                                .foregroundStyle(.cyan)
-                        }
-                        if vm.currentPhaseName == "Testing", let dist = vm.currentServerDistance {
+                    // Metadata: distance only
+                    if vm.currentPhaseName == "Testing", let dist = vm.currentServerDistance {
+                        HStack(spacing: 8) {
                             Label(String(format: "%.0f km", dist), systemImage: "location")
                                 .font(.caption2.monospacedDigit())
                                 .foregroundStyle(.secondary)

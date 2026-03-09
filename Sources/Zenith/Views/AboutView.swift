@@ -19,13 +19,25 @@ struct AboutView: View {
                         .antialiased(true)
                         .frame(width: 88, height: 88)
 
-                    VStack(spacing: 4) {
+                    VStack(spacing: 6) {
                         Text("Zenith")
                             .font(.title.bold())
-                        Text("Version \(appVersion)")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .monospacedDigit()
+
+                        // Version + update indicator on same row
+                        HStack(spacing: 6) {
+                            Text("v\(appVersion)")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .monospacedDigit()
+                            updateBadge
+                        }
+
+                        // Download counter
+                        if let dl = updateChecker.totalDownloads, dl > 0 {
+                            Text("\(dl.formatted()) downloads")
+                                .font(.caption2)
+                                .foregroundStyle(.tertiary)
+                        }
                     }
                 }
                 .padding(.top, 12)
@@ -77,11 +89,6 @@ struct AboutView: View {
 
                 Divider()
 
-                // MARK: - Updates
-                updateRow
-
-                Divider()
-
                 // MARK: - License
                 VStack(spacing: 6) {
                     Text("MIT License — © 2026 ArN-Ld")
@@ -106,50 +113,42 @@ struct AboutView: View {
         }
     }
 
-    // MARK: - Update row
+    // MARK: - Update badge (inline, next to version)
 
     @ViewBuilder
-    private var updateRow: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 10) {
-                if updateChecker.isChecking {
-                    ProgressView().controlSize(.small)
-                    Text("Checking for updates\u{2026}")
-                        .font(.caption).foregroundStyle(.secondary)
-                    Spacer()
-                } else if updateChecker.updateAvailable, let v = updateChecker.latestVersion {
-                    Image(systemName: "arrow.down.circle.fill").foregroundStyle(.green)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Version \(v) available").font(.caption.bold())
-                        Text("Installed: \(appVersion)").font(.caption2).foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    Button("Download") {
-                        NSWorkspace.shared.open(
-                            URL(string: "https://github.com/ArN-Ld/Zenith/releases/latest")!
-                        )
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.small)
-                } else if let err = updateChecker.lastError {
-                    Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange)
-                    Text(err).font(.caption2).foregroundStyle(.orange).lineLimit(1).truncationMode(.tail)
-                    Spacer()
-                    Button("Retry") { Task { await updateChecker.check(force: true) } }
-                        .font(.caption2).controlSize(.mini)
-                } else {
-                    Image(systemName: "checkmark.circle.fill").foregroundStyle(.secondary)
-                    Text("Version \(appVersion) — up to date")
-                        .font(.caption).foregroundStyle(.secondary)
-                    Spacer()
-                    Button("Check for updates") { Task { await updateChecker.check(force: true) } }
-                        .font(.caption2).controlSize(.mini)
-                }
+    private var updateBadge: some View {
+        if updateChecker.isChecking {
+            ProgressView().controlSize(.mini)
+        } else if updateChecker.updateAvailable, let v = updateChecker.latestVersion {
+            Button {
+                NSWorkspace.shared.open(
+                    URL(string: "https://github.com/ArN-Ld/Zenith/releases/latest")!
+                )
+            } label: {
+                Label("v\(v) available", systemImage: "arrow.down.circle.fill")
+                    .font(.caption2.bold())
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 3)
+                    .background(.green, in: Capsule())
             }
+            .buttonStyle(.plain)
+        } else if updateChecker.lastError != nil {
+            Button { Task { await updateChecker.check(force: true) } } label: {
+                Label("Retry", systemImage: "exclamationmark.triangle")
+                    .font(.caption2)
+                    .foregroundStyle(.orange)
+            }
+            .buttonStyle(.plain)
+        } else {
+            Button { Task { await updateChecker.check(force: true) } } label: {
+                Image(systemName: "checkmark.circle")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+            .buttonStyle(.plain)
+            .help("Up to date \u{2014} click to re-check")
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 12)
-        .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
     }
 
     // MARK: - Helpers

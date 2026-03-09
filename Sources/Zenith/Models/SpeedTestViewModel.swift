@@ -89,6 +89,10 @@ final class SpeedTestViewModel: ObservableObject {
         }
     }
 
+    private var isCalibrationMode: Bool {
+        currentTestSteps.contains { $0.id == "calibrate" }
+    }
+
     var sortedResults: [ServerResult] {
         results.sorted { $0.downloadSpeed > $1.downloadSpeed }
     }
@@ -213,10 +217,10 @@ final class SpeedTestViewModel: ObservableObject {
             availableContinents = status.continents ?? []
             state = .running(progress: "Calibrating connections")
         case "calibration_test":
-            currentPhaseName = ""             // steps already convey the phase
+            currentPhaseName = ""
             currentTestStartTime = Date()
             currentServer = status.hostname ?? ""
-            currentServerContinent = ""       // calibration server continent is noise
+            currentServerContinent = status.continent ?? ""
             stepResetTask?.cancel()
             currentTestSteps = Self.makeCalibrationSteps()
             activateStep("connect")
@@ -258,11 +262,19 @@ final class SpeedTestViewModel: ObservableObject {
             activateStep("connect")
             state = .running(progress: currentServer)
         case "stabilizing":
-            activateStep("stabilize")
+            if isCalibrationMode {
+                activateStep("calibrate")
+            } else {
+                activateStep("stabilize")
+            }
             state = .running(progress: currentServer)
         case "speedtest_running":
-            currentPhaseName = "Testing"
-            activateStep("speedtest")
+            if isCalibrationMode {
+                activateStep("calibrate")
+            } else {
+                currentPhaseName = "Testing"
+                activateStep("speedtest")
+            }
             state = .running(progress: currentServer)
         case "mtr_running":
             currentPhaseName = "Testing"

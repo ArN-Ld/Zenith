@@ -1,44 +1,214 @@
 #!/usr/bin/env python3
 """
-Generate VPN Tools app icon — Final Cut Pro inspired style.
-Dark gradient background + vibrant neon shield with speed arc.
+Generate Zenith app icon — North star / Polaris style.
+Deep space background + bright 4-ray star with soft blue glow.
 """
 
 import math
-import struct
 import subprocess
 import os
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFilter
 
 SIZE = 1024
 CENTER = SIZE // 2
-PAD = int(SIZE * 0.08)  # ~82px padding for macOS squircle inset
 
 # ─── Colors ──────────────────────────────────────────────
-BG_TOP = (15, 10, 40)       # Deep dark indigo
-BG_MID = (25, 15, 65)       # Dark purple
-BG_BOT = (12, 8, 35)        # Near-black base
+BG_INNER = (10, 12, 28)     # Very dark navy center
+BG_OUTER = (5, 6, 15)       # Near-black edge
 
-SHIELD_OUTER = (80, 50, 200)    # Purple glow ring
-SHIELD_FILL_TOP = (30, 20, 80)  # Shield interior top
-SHIELD_FILL_BOT = (15, 10, 50)  # Shield interior bottom
-
-ARC_CYAN = (0, 220, 255)        # Neon cyan
-ARC_GREEN = (0, 255, 160)       # Neon green
-ARC_PURPLE = (140, 80, 255)     # Vibrant purple
-GLOW_CYAN = (0, 180, 255, 60)   # Cyan glow
-GLOW_GREEN = (0, 255, 140, 40)  # Green glow
-
-TICK_COLOR = (200, 200, 240, 180)
-NEEDLE_COLOR = (255, 80, 100)   # Red-pink needle
-WHITE = (255, 255, 255)
-WHITE_A = (255, 255, 255, 200)
+STAR_WHITE = (245, 248, 255, 255)   # Star core — blue-white
+GLOW_BLUE  = (80, 140, 255, 90)     # Soft blue glow
+GLOW_OUTER = (40, 80, 200, 30)      # Wide diffuse glow
+SPECKLE    = (200, 210, 255, 60)    # Background star speckles
 
 
 def lerp_color(c1, c2, t):
-    """Linear interpolate between two RGB(A) colors."""
     return tuple(int(a + (b - a) * t) for a, b in zip(c1, c2))
+
+
+def draw_background(img):
+    """Deep space background: dark navy with subtle radial gradient."""
+    draw = ImageDraw.Draw(img)
+    for y in range(SIZE):
+        t = y / SIZE
+        c = lerp_color(BG_INNER, BG_OUTER, t)
+        draw.line([(0, y), (SIZE, y)], fill=c)
+
+    # Soft radial highlight behind star
+    cx, cy = CENTER, int(SIZE * 0.44)
+    highlight = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+    hd = ImageDraw.Draw(highlight)
+    for r in range(350, 0, -1):
+        a = int(18 * (1 - r / 350))
+        hd.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(60, 100, 200, a))
+    img.paste(Image.alpha_composite(img.convert('RGBA'), highlight))
+
+
+def draw_speckles(img):
+    """A handful of tiny background stars."""
+    import random
+    random.seed(7)
+    overlay = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+    od = ImageDraw.Draw(overlay)
+    for _ in range(28):
+        x = random.randint(80, SIZE - 80)
+        y = random.randint(60, SIZE - 60)
+        r = random.uniform(1.2, 2.8)
+        a = random.randint(25, 75)
+        od.ellipse([x - r, y - r, x + r, y + r], fill=(220, 230, 255, a))
+    img.paste(Image.alpha_composite(img.convert('RGBA'), overlay))
+
+
+def draw_star(img):
+    """4-pointed north-star / Polaris: two long vertical rays, two shorter horizontal."""
+    cx, cy = CENTER, int(SIZE * 0.44)
+
+    long_len  = int(SIZE * 0.345)   # half-length of vertical rays
+    short_len = int(SIZE * 0.195)   # half-length of horizontal rays
+    waist     = int(SIZE * 0.028)   # waist width between ray bases
+
+    def star_poly(long_l, short_l, w):
+        """Compute the 8 points of the 4-pointed star polygon."""
+        return [
+            (cx,          cy - long_l),   # top
+            (cx + w,      cy - w),
+            (cx + short_l, cy),           # right
+            (cx + w,      cy + w),
+            (cx,          cy + long_l),   # bottom
+            (cx - w,      cy + w),
+            (cx - short_l, cy),           # left
+            (cx - w,      cy - w),
+        ]
+
+    # ── Glow layers (wide blurred) ──
+    for (glow_r, gl_l, gs_l, ga) in [
+        (60,  long_len + 80, short_len + 50, 18),
+        (30,  long_len + 40, short_len + 25, 30),
+        (16,  long_len + 15, short_len + 10, 50),
+    ]:
+        glow = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+        gd = ImageDraw.Draw(glow)
+        gd.polygon(star_poly(gl_l, gs_l, waist + 14), fill=(*GLOW_BLUE[:3], ga))
+        glow = glow.filter(ImageFilter.GaussianBlur(glow_r))
+        img.paste(Image.alpha_composite(img.convert('RGBA'), glow))
+
+    # ── Tight inner glow ──
+    inner = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+    id_ = ImageDraw.Draw(inner)
+    id_.polygon(star_poly(long_len + 6, short_len + 4, waist + 6), fill=(*GLOW_BLUE[:3], 80))
+    inner = inner.filter(ImageFilter.GaussianBlur(10))
+    img.paste(Image.alpha_composite(img.convert('RGBA'), inner))
+
+    # ── Star body ──
+    main = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+    md = ImageDraw.Draw(main)
+    pts = star_poly(long_len, short_len, waist)
+    md.polygon(pts, fill=STAR_WHITE)
+
+    # Subtle centre brightness boost
+    for r in range(int(SIZE * 0.07), 0, -1):
+        a = int(12 * (1 - r / (SIZE * 0.07)))
+        md.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(255, 255, 255, a))
+
+    img.paste(Image.alpha_composite(img.convert('RGBA'), main))
+
+
+def apply_squircle_mask(img):
+    """macOS continuous-corner (squircle) mask, ~22% radius."""
+    mask = Image.new('L', (SIZE, SIZE), 0)
+    ImageDraw.Draw(mask).rounded_rectangle(
+        [0, 0, SIZE - 1, SIZE - 1],
+        radius=int(SIZE * 0.2237), fill=255
+    )
+    mask = mask.filter(ImageFilter.GaussianBlur(1))
+    result = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+    result.paste(img, mask=mask)
+    return result
+
+
+def generate_icon():
+    img = Image.new('RGBA', (SIZE, SIZE), (0, 0, 0, 0))
+    print("  Drawing background...")
+    draw_background(img)
+    print("  Drawing speckles...")
+    draw_speckles(img)
+    print("  Drawing star...")
+    draw_star(img)
+    print("  Applying squircle mask...")
+    return apply_squircle_mask(img)
+
+
+def export_sizes(master, out_dir):
+    sizes = [
+        ("icon_16x16.png",     16),
+        ("icon_16x16@2x.png",  32),
+        ("icon_32x32.png",     32),
+        ("icon_32x32@2x.png",  64),
+        ("icon_64x64.png",     64),
+        ("icon_128x128.png",   128),
+        ("icon_128x128@2x.png",256),
+        ("icon_256x256.png",   256),
+        ("icon_256x256@2x.png",512),
+        ("icon_512x512.png",   512),
+        ("icon_512x512@2x.png",1024),
+    ]
+    for filename, px in sizes:
+        resized = master.resize((px, px), Image.LANCZOS)
+        (out_dir / filename).write_bytes(b"")  # ensure path exists
+        resized.save(str(out_dir / filename), 'PNG')
+        print(f"  ✓ {filename} ({px}×{px})")
+
+
+def create_icns(icon_dir, icns_path):
+    import shutil
+    iconset = icon_dir.parent / "Zenith.iconset"
+    iconset.mkdir(exist_ok=True)
+    names = [
+        "icon_16x16.png", "icon_16x16@2x.png",
+        "icon_32x32.png",  "icon_32x32@2x.png",
+        "icon_128x128.png","icon_128x128@2x.png",
+        "icon_256x256.png","icon_256x256@2x.png",
+        "icon_512x512.png","icon_512x512@2x.png",
+    ]
+    for name in names:
+        src = icon_dir / name
+        if src.exists():
+            shutil.copy2(str(src), str(iconset / name))
+    result = subprocess.run(
+        ["iconutil", "--convert", "icns", "--output", str(icns_path), str(iconset)],
+        capture_output=True, text=True
+    )
+    if result.returncode == 0:
+        print(f"  ✓ {icns_path.name}")
+    else:
+        print(f"  ✗ iconutil: {result.stderr}")
+    shutil.rmtree(str(iconset), ignore_errors=True)
+
+
+def main():
+    script_dir = Path(__file__).parent.parent   # scripts/ → repo root
+    icon_dir = script_dir / "Sources" / "Zenith" / "Assets.xcassets" / "AppIcon.appiconset"
+    icns_path = script_dir / "Resources" / "Zenith.icns"
+
+    print("==> Generating Zenith icon (north-star design)")
+    master = generate_icon()
+
+    master_path = icon_dir / "icon_master_1024.png"
+    master.save(str(master_path), 'PNG')
+    print(f"  ✓ Master: {master_path.name}")
+
+    print("==> Exporting sizes...")
+    export_sizes(master, icon_dir)
+
+    print("==> Creating .icns...")
+    create_icns(icon_dir, icns_path)
+    print("==> Done!")
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 def draw_rounded_rect_bg(img):

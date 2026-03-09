@@ -215,6 +215,12 @@ struct MenuBarView: View {
                             .font(.caption.monospaced())
                             .lineLimit(1)
                             .truncationMode(.middle)
+                        if !vm.currentServerContinent.isEmpty {
+                            Text("\u{00B7} \(vm.currentServerContinent)")
+                                .font(.caption2)
+                                .foregroundStyle(.cyan)
+                                .lineLimit(1)
+                        }
                         Spacer()
                         if let start = vm.currentTestStartTime {
                             TimelineView(.periodic(from: start, by: 1)) { tl in
@@ -226,13 +232,8 @@ struct MenuBarView: View {
                         }
                     }
 
-                    // Metadata row: continent + distance + expanding
+                    // Metadata row: distance + expanding (continent moved inline)
                     HStack(spacing: 8) {
-                        if !vm.currentServerContinent.isEmpty {
-                            Label(vm.currentServerContinent, systemImage: "globe")
-                                .font(.caption2)
-                                .foregroundStyle(.cyan)
-                        }
                         if let dist = vm.currentServerDistance, vm.currentPhaseName == "Testing" {
                             Label(String(format: "%.0f km", dist), systemImage: "location")
                                 .font(.caption2.monospacedDigit())
