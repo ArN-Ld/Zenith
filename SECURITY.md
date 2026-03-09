@@ -11,7 +11,7 @@
 **Do not open a public GitHub issue for security vulnerabilities.**
 
 Please report security issues privately via
-[GitHub Security Advisories](https://github.com/ArN-Ld/VPNTools-macOS/security/advisories/new).
+[GitHub Security Advisories](https://github.com/ArN-Ld/Zenith/security/advisories/new).
 
 You will receive a response within 7 days.
 

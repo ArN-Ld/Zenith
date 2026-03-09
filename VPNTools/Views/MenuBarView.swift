@@ -21,9 +21,9 @@ struct MenuBarView: View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Image(systemName: "bolt.shield.fill")
-                    .foregroundStyle(.blue)
-                Text("VPN Tools")
+                Image(systemName: "star.fill")
+                    .foregroundStyle(.yellow)
+                Text("Zenith")
                     .font(.headline)
                 Spacer()
                 statusIndicator
@@ -297,7 +297,7 @@ struct MenuBarView: View {
                     openDashboard()
                 }
 
-                MenuBarButton(title: "About VPN Tools…", icon: "info.circle", color: .primary) {
+                MenuBarButton(title: "About Zenith…", icon: "info.circle", color: .primary) {
                     NSApp.activate(ignoringOtherApps: true)
                     NotificationCenter.default.post(name: .openAboutTab, object: nil)
                     openDashboard()

@@ -1,12 +1,14 @@
-# VPN Tools for macOS
+# Zenith
 
-> Rank your Mullvad VPN servers by actual performance — right from the menu bar.
+> Find your peak VPN performance — right from the menu bar.
 
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-black?logo=apple)
 ![Swift 5.9+](https://img.shields.io/badge/Swift-5.9%2B-orange?logo=swift)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue)
 
-Native SwiftUI menu bar app that runs [**vpn-tools**](https://github.com/ArN-Ld/vpn-tools) as a bundled subprocess and presents its results — latency, download speed, server ranking — in a clean macOS-native interface.
+**Zenith** is a native macOS menu bar app that ranks [Mullvad VPN](https://mullvad.net) servers by latency and download speed. It runs [**vpn-tools**](https://github.com/ArN-Ld/vpn-tools) as a bundled subprocess and surfaces the results in a clean SwiftUI interface.
+
+The name comes from astronomy: the **zenith** is the highest point in the sky — just like Zenith finds the peak-performing server for you.
 
 ---
 
@@ -51,11 +53,11 @@ sudo chmod 4755 $(brew --prefix)/Cellar/mtr/0.96/sbin/mtr-packet
 Requires Xcode Command Line Tools / Swift 5.9+.
 
 ```bash
-git clone https://github.com/ArN-Ld/VPNTools-macOS.git
-cd VPNTools-macOS
+git clone https://github.com/ArN-Ld/Zenith.git
+cd Zenith
 bash build_app.sh
-cp -R 'VPN Tools.app' /Applications/
-open '/Applications/VPN Tools.app'
+cp -R 'Zenith.app' /Applications/
+open '/Applications/Zenith.app'
 ```
 
 `build_app.sh` compiles the Swift binary in release mode and bundles the Python source
@@ -71,7 +73,7 @@ No separate Python environment needed.
 ## Architecture
 
 ```
-vpn-tools (Python CLI)          VPN Tools.app (this project, Swift)
+vpn-tools (Python CLI)          Zenith.app (this project, Swift)
 ────────────────────────        ──────────────────────────────────────
 mullvad_speed_test.py           SpeedTestRunner.swift
   --machine-readable              └─ launches Python subprocess
@@ -81,8 +83,7 @@ mullvad_speed_test.py           SpeedTestRunner.swift
 ```
 
 The dependency is **one-way**: `vpn-tools` is a standalone CLI with no knowledge of this
-app. `VPN Tools.app` invokes it as a subprocess and consumes its `--machine-readable`
-JSON protocol.
+app. Zenith invokes it as a subprocess and consumes its `--machine-readable` JSON protocol.
 
 | Concern | Where it lives |
 |---------|----------------|
@@ -99,7 +100,7 @@ JSON protocol.
 ## Project structure
 
 ```
-VPNTools-macOS/
+Zenith/
 ├── Package.swift
 ├── build_app.sh              ← release build + bundle
 ├── generate_icon.py          ← regenerate app icon (requires Pillow)
@@ -127,7 +128,7 @@ VPNTools-macOS/
 
 ## Contributing
 
-Bug reports and feature requests welcome via [GitHub Issues](https://github.com/ArN-Ld/VPNTools-macOS/issues).
+Bug reports and feature requests welcome via [GitHub Issues](https://github.com/ArN-Ld/Zenith/issues).
 
 - Test logic / CLI changes → [vpn-tools](https://github.com/ArN-Ld/vpn-tools)
 - macOS UI / Swift changes → this repo

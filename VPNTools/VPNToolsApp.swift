@@ -31,7 +31,7 @@ struct VPNToolsApp: App {
         .menuBarExtraStyle(.window)
 
         // Full dashboard window — golden ratio proportions (φ ≈ 1.618)
-        Window("VPN Tools Dashboard", id: "dashboard") {
+        Window("Zenith", id: "dashboard") {
             ContentView()
                 .environmentObject(speedTestVM)
                 .environmentObject(depManager)
@@ -50,10 +50,10 @@ struct VPNToolsApp: App {
 
     private var menuBarIcon: String {
         switch speedTestVM.state {
-        case .idle: return "bolt.shield"
-        case .running: return "bolt.shield.fill"
-        case .completed: return "checkmark.shield.fill"
-        case .error: return "exclamationmark.shield.fill"
+        case .idle: return "star"
+        case .running: return "star.fill"
+        case .completed: return "checkmark.circle.fill"
+        case .error: return "exclamationmark.triangle.fill"
         }
     }
 }

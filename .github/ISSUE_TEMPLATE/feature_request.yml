@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest a new feature or improvement for VPN Tools for macOS
+description: Suggest a new feature or improvement for Zenith for macOS
 labels: ["enhancement"]
 body:
   - type: textarea

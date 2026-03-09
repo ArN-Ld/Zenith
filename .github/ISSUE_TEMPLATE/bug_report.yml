@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug or unexpected behaviour in VPN Tools for macOS
+description: Report a bug or unexpected behaviour in Zenith for macOS
 labels: ["bug"]
 body:
   - type: markdown

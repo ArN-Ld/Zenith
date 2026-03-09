@@ -1,4 +1,4 @@
-# VPNTools-macOS — Journal de développement
+# Zenith (ex-VPNTools-macOS) — Journal de développement
 
 > Historique exhaustif des modifications effectuées lors des sessions de dev du 8-9 mars 2026 et jours suivants.
 > Ce fichier sert de référence pour toute reprise du projet. Chaque étape correspond à un "commit logique".
@@ -13,8 +13,8 @@
 |---|---|---|
 | **Nature** | CLI Python, outil autonome | App macOS SwiftUI, menu bar |
 | **Langage** | Python 3.9+ | Swift 5.9+ |
-| **Dépôt** | github.com/ArN-Ld/vpn-tools | Dossier local `VPNTools-macOS/` (pas de repo git propre) |
-| **Versioning** | Semver, tags git, GitHub Releases | Pas de versioning indépendant |
+| **Dépôt** | github.com/ArN-Ld/vpn-tools | github.com/ArN-Ld/Zenith |
+| **Versioning** | Semver, tags git, GitHub Releases | Semver, tags git, GitHub Releases |
 | **Dépendance** | Aucune — outil autonome | Consomme `vpn-tools` comme sous-processus |
 
 > **Règle absolue** : `vpn-tools` ne sait pas que `VPN Tools.app` existe. La dépendance va dans un seul sens : l'app lance `mullvad_speed_test.py --machine-readable` et parse son stdout JSON.

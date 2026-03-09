@@ -40,9 +40,9 @@ struct HeaderView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 16) {
-                Image(systemName: "bolt.shield.fill")
+                Image(systemName: "star.fill")
                     .font(.title)
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.yellow)
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Mullvad Speed Test")

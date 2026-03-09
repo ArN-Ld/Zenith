@@ -2,11 +2,11 @@
 set -euo pipefail
 
 # ──────────────────────────────────────────────────────────
-# build_app.sh — Build self-contained VPN Tools.app
+# build_app.sh — Build self-contained Zenith.app
 # ──────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-APP_NAME="VPN Tools"
+APP_NAME="Zenith"
 APP_BUNDLE="$SCRIPT_DIR/$APP_NAME.app"
 CONTENTS="$APP_BUNDLE/Contents"
 MACOS_DIR="$CONTENTS/MacOS"
@@ -36,13 +36,13 @@ cat > "$CONTENTS/Info.plist" << 'EOF'
 <plist version="1.0">
 <dict>
     <key>CFBundleExecutable</key>
-    <string>VPN Tools</string>
+    <string>Zenith</string>
     <key>CFBundleIdentifier</key>
-    <string>com.arn-ld.vpn-tools</string>
+    <string>com.arn-ld.zenith</string>
     <key>CFBundleName</key>
-    <string>VPN Tools</string>
+    <string>Zenith</string>
     <key>CFBundleDisplayName</key>
-    <string>VPN Tools</string>
+    <string>Zenith</string>
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>CFBundleShortVersionString</key>
@@ -56,14 +56,14 @@ cat > "$CONTENTS/Info.plist" << 'EOF'
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>CFBundleIconFile</key>
-    <string>VPNTools</string>
+    <string>Zenith</string>
 </dict>
 </plist>
 EOF
 
 # Copy app icon
-if [ -f "$SCRIPT_DIR/VPNTools.icns" ]; then
-    cp "$SCRIPT_DIR/VPNTools.icns" "$RESOURCES/VPNTools.icns"
+if [ -f "$SCRIPT_DIR/Zenith.icns" ]; then
+    cp "$SCRIPT_DIR/Zenith.icns" "$RESOURCES/Zenith.icns"
 fi
 
 # 5. Bundle Python source code

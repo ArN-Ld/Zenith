@@ -18,7 +18,7 @@ struct AboutView: View {
                         .frame(width: 88, height: 88)
 
                     VStack(spacing: 4) {
-                        Text("VPN Tools")
+                        Text("Zenith")
                             .font(.title.bold())
                         Text("Version \(appVersion)")
                             .font(.subheadline)
@@ -29,7 +29,7 @@ struct AboutView: View {
                 .padding(.top, 12)
 
                 // MARK: - Description
-                Text("Menu bar app for macOS that tests Mullvad VPN server performance and ranks servers by latency and download speed.")
+                Text("Find your peak VPN performance. Zenith ranks Mullvad servers by latency and download speed — right from the menu bar.")
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
@@ -41,8 +41,8 @@ struct AboutView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     linkRow(
                         icon: "chevron.left.forwardslash.chevron.right",
-                        label: "VPN Tools — source code",
-                        url: "https://github.com/ArN-Ld/VPNTools-macOS"
+                        label: "Zenith — source code",
+                        url: "https://github.com/ArN-Ld/Zenith"
                     )
                     linkRow(
                         icon: "terminal",
@@ -85,7 +85,7 @@ struct AboutView: View {
                         .foregroundStyle(.tertiary)
                     Button("View full license on GitHub") {
                         NSWorkspace.shared.open(
-                            URL(string: "https://github.com/ArN-Ld/VPNTools-macOS/blob/main/LICENSE")!
+                            URL(string: "https://github.com/ArN-Ld/Zenith/blob/main/LICENSE")!
                         )
                     }
                     .font(.caption2)
