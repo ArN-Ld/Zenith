@@ -35,6 +35,10 @@ The name comes from astronomy: the **zenith** is the highest point in the sky â€
 
 ### mtr note (Homebrew)
 
+> **Upstream bug:** Homebrew's `mtr` formula does not set the required SUID bit on `mtr-packet` after installation.
+> This is a known issue tracked at [homebrew-core#271391](https://github.com/Homebrew/homebrew-core/issues/271391).
+> The workaround below remains necessary until the formula is fixed.
+
 `brew install mtr` may leave `mtr-packet` with incorrect SUID ownership (owned by the
 installing user instead of root). The app automatically uses ping fallback in that case.
 To fix MTR for full hop tracking, run once:
