@@ -21,7 +21,7 @@ wiki.mkdir(exist_ok=True)
 ## Option 1 — Homebrew Cask *(recommended)*
 
 ```bash
-brew tap ArN-Ld/tap
+brew tap ArN-LaB/tap
 brew install --cask zenith
 ```
 
@@ -34,7 +34,7 @@ Then launch from **Applications** or Spotlight (`Zenith`).
 Requires Xcode Command Line Tools or Xcode 15+.
 
 ```bash
-git clone https://github.com/ArN-Ld/Zenith.git
+git clone https://github.com/ArN-LaB/Zenith.git
 cd Zenith
 bash build_app.sh
 cp -R 'Zenith.app' /Applications/
@@ -236,7 +236,7 @@ This was a bug in versions before `v1.1.0`. Update to the latest release.
 
 ## Still stuck?
 
-Open an issue on [GitHub](https://github.com/ArN-Ld/Zenith/issues) with:\\
+Open an issue on [GitHub](https://github.com/ArN-LaB/Zenith/issues) with:\\
 - macOS version
 - Zenith version (About tab)
 - The contents of the Log tab

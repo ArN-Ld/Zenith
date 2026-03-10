@@ -18,7 +18,7 @@ All notable changes to Zenith are documented in this file.
 - Settings: reference location geocoder with autocomplete, test parameters, path configuration, geographic zone.
 - System preflight window at startup — checks `mtr`, `speedtest-cli`, `mullvad` CLI, and Python.
 - Dependency auto-detection for Python, `speedtest-cli`, `mtr`, and Mullvad CLI.
-- Runs [vpn-tools](https://github.com/ArN-Ld/vpn-tools) Python CLI as a bundled subprocess via `--machine-readable` JSON protocol.
+- Runs [vpn-tools](https://github.com/ArN-LaB/vpn-tools) Python CLI as a bundled subprocess via `--machine-readable` JSON protocol.
 - Automatic ping fallback when `mtr-packet` is not correctly configured (Homebrew SUID ownership issue).
 - Menu bar badge: “ping” capsule indicator when MTR falls back to ping mode.
 - Dashboard “Ping mode” label in header subtitle when running in fallback mode.

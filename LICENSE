@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 ArN-Ld
+Copyright (c) 2026 ArN-LaB
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,10 @@ SOFTWARE.
 ---
 
 This project bundles source code from vpn-tools
-(https://github.com/ArN-Ld/vpn-tools), itself a fork of the original
+(https://github.com/ArN-LaB/vpn-tools), itself a fork of the original
 vpn-tools by Valera. Both are distributed under the MIT License:
 
     MIT License — Copyright (c) 2025 Valera
 
 The full text of the upstream MIT License is available at
-https://github.com/ArN-Ld/vpn-tools/blob/main/LICENSE
+https://github.com/ArN-LaB/vpn-tools/blob/main/LICENSE

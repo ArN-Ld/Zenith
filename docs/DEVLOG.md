@@ -13,7 +13,7 @@
 |---|---|---|
 | **Nature** | CLI Python, outil autonome | App macOS SwiftUI, menu bar |
 | **Langage** | Python 3.9+ | Swift 5.9+ |
-| **Dépôt** | github.com/ArN-Ld/vpn-tools | github.com/ArN-Ld/Zenith |
+| **Dépôt** | github.com/ArN-LaB/vpn-tools | github.com/ArN-LaB/Zenith |
 | **Versioning** | Semver, tags git, GitHub Releases | Semver, tags git, GitHub Releases |
 | **Dépendance** | Aucune — outil autonome | Consomme `vpn-tools` comme sous-processus |
 
@@ -119,7 +119,7 @@
 
 **Prérequis vpn-tools** : ajout du flag `--machine-readable` dans vpn-tools — VPNTools-macOS injecte cet argument lors du lancement du processus Python.
 
-> Les détails d'implémentation Python appartiennent au projet vpn-tools. Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+> Les détails d'implémentation Python appartiennent au projet vpn-tools. Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 **Impact VPNTools-macOS** : permet de remplacer le parseur regex fragile par un parseur JSON robuste (voir Phase 4 — Réécriture du parseur Swift).
 
@@ -333,7 +333,7 @@
 
 **Prérequis vpn-tools** : émission d'événements `{"type":"status","phase":...}` à chaque étape du test, permettant le suivi de progression en temps réel.
 
-> Protocole JSON défini dans vpn-tools. Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+> Protocole JSON défini dans vpn-tools. Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 **Phases émises** (consommées côté Swift via `onStatus` callback) : `calibration`, `calibration_test`, `selection`, `testing`, `progress`, `extension`.
 
@@ -478,7 +478,7 @@
 | `Views/SettingsView.swift` | +section "Geographic zone" (maxDistance toggle + stepper), frame 420px |
 
 ### Dépendance vpn-tools
-Les modifications Python nécessaires sont documentées dans le [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+Les modifications Python nécessaires sont documentées dans le [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 ---
 
@@ -625,7 +625,7 @@ cd vpn-tools && python3 -m pytest tests/ -q
 
 **Prérequis vpn-tools** : `KEYWORD_TO_CONTINENT` enrichi dans vpn-tools — résout correctement le continent à partir du nom de ville de référence saisi dans Settings.
 
-> Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md) (CONTINENT_MAPPING enrichi, ~80 entrées).
+> Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md) (CONTINENT_MAPPING enrichi, ~80 entrées).
 
 **Symptôme visible dans VPNTools-macOS** : saisir "tokyo" dans Settings → continent "Unknown" au lieu de "Asia".
 
@@ -776,7 +776,7 @@ Lorsqu'on tapait une ville dans Settings ou MenuBar, seules les coordonnées bru
 | `Views/SettingsView.swift` | CLGeocoder dynamique, bouton de validation riche (ville/pays/continent), `continentFromCode()` static, `stepperRow()` réutilisable, `ScrollView` onglet Test, frame 520px |
 
 ### Dépendance vpn-tools
-Les modifications Python nécessaires sont documentées dans le [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+Les modifications Python nécessaires sont documentées dans le [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 ### Fichiers générés (icône)
 | Fichier | Description |
@@ -932,7 +932,7 @@ Les labels de continent dans le header Dashboard et dans MenuBarView affichaient
 
 **Fichiers modifiés** : `Models/SpeedTestViewModel.swift`, `Models/SpeedTestModels.swift`, `Views/ContentView.swift`
 
-> **Prérequis vpn-tools** : `CONTINENT_MAPPING` complet (tous codes pays Mullvad) — voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+> **Prérequis vpn-tools** : `CONTINENT_MAPPING` complet (tous codes pays Mullvad) — voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 ### TestStep / StepStatus (Swift)
 - Nouveau model `StepStatus` (enum) :
@@ -1000,7 +1000,7 @@ currentTestSteps = makeTestSteps()
 
 **Pipeline calibration séparé** : `makeCalibrationSteps()` retourne 2 étapes `[connect, calibrate]` utilisées uniquement pendant la phase de calibration — évite d'afficher 4 étapes inutiles lors de la calibration initiale.
 
-> **Prérequis vpn-tools** : `mtr_running` n'est émis que lorsque `download_speed > 0` — évite d'activer l'étape MTR pour les serveurs non-viables. Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+> **Prérequis vpn-tools** : `mtr_running` n'est émis que lorsque `download_speed > 0` — évite d'activer l'étape MTR pour les serveurs non-viables. Voir [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 ### 35c — Settings intégré dans Dashboard (suppression scène séparée)
 
@@ -1126,7 +1126,7 @@ Window("VPN Tools", id: "dashboard") {
 | `Views/SettingsView.swift` | `.frame()` retiré (onglet Dashboard), intégration sans redimensionnement fixe |
 
 ### Dépendance vpn-tools
-Les modifications Python nécessaires sont documentées dans le [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-Ld/vpn-tools/blob/main/docs/CHANGELOG.md).
+Les modifications Python nécessaires sont documentées dans le [CHANGELOG vpn-tools v1.1.0](https://github.com/ArN-LaB/vpn-tools/blob/main/docs/CHANGELOG.md).
 
 ---
 

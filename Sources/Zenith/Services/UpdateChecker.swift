@@ -26,7 +26,7 @@ final class UpdateChecker: ObservableObject {
         do {
             // Fetch all releases: covers latest version + total download count
             var req = URLRequest(
-                url: URL(string: "https://api.github.com/repos/ArN-Ld/Zenith/releases")!
+                url: URL(string: "https://api.github.com/repos/ArN-LaB/Zenith/releases")!
             )
             req.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
             req.setValue("2022-11-28", forHTTPHeaderField: "X-GitHub-Api-Version")

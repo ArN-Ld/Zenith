@@ -38,7 +38,7 @@ cat > "$CONTENTS/Info.plist" << 'EOF'
     <key>CFBundleExecutable</key>
     <string>Zenith</string>
     <key>CFBundleIdentifier</key>
-    <string>com.arn-ld.zenith</string>
+    <string>com.arn-lab.zenith</string>
     <key>CFBundleName</key>
     <string>Zenith</string>
     <key>CFBundleDisplayName</key>

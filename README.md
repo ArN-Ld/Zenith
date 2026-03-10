@@ -6,7 +6,7 @@
 ![Swift 5.9+](https://img.shields.io/badge/Swift-5.9%2B-orange?logo=swift)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue)
 
-**Zenith** is a native macOS menu bar app that ranks [Mullvad VPN](https://mullvad.net) servers by latency and download speed. It runs [**vpn-tools**](https://github.com/ArN-Ld/vpn-tools) as a bundled subprocess and surfaces the results in a clean SwiftUI interface.
+**Zenith** is a native macOS menu bar app that ranks [Mullvad VPN](https://mullvad.net) servers by latency and download speed. It runs [**vpn-tools**](https://github.com/ArN-LaB/vpn-tools) as a bundled subprocess and surfaces the results in a clean SwiftUI interface.
 
 The name comes from astronomy: the **zenith** is the highest point in the sky — just like Zenith finds the peak-performing server for you.
 
@@ -57,7 +57,7 @@ sudo chmod 4755 $(brew --prefix)/Cellar/mtr/0.96/sbin/mtr-packet
 Requires Xcode Command Line Tools / Swift 5.9+.
 
 ```bash
-git clone https://github.com/ArN-Ld/Zenith.git
+git clone https://github.com/ArN-LaB/Zenith.git
 cd Zenith
 bash build_app.sh
 cp -R 'Zenith.app' /Applications/
@@ -71,7 +71,7 @@ No separate Python environment needed.
 ### Homebrew Cask
 
 ```bash
-brew tap ArN-Ld/tap
+brew tap ArN-LaB/tap
 brew install --cask zenith
 ```
 
@@ -145,19 +145,19 @@ Zenith/
 
 ## Documentation
 
-Full user documentation is on the **[Wiki](https://github.com/ArN-Ld/Zenith/wiki)**:
+Full user documentation is on the **[Wiki](https://github.com/ArN-LaB/Zenith/wiki)**:
 
-- [Installation](https://github.com/ArN-Ld/Zenith/wiki/Installation)
-- [User Guide](https://github.com/ArN-Ld/Zenith/wiki/User-Guide)
-- [Troubleshooting](https://github.com/ArN-Ld/Zenith/wiki/Troubleshooting)
+- [Installation](https://github.com/ArN-LaB/Zenith/wiki/Installation)
+- [User Guide](https://github.com/ArN-LaB/Zenith/wiki/User-Guide)
+- [Troubleshooting](https://github.com/ArN-LaB/Zenith/wiki/Troubleshooting)
 
 ---
 
 ## Contributing
 
-Bug reports and feature requests welcome via [GitHub Issues](https://github.com/ArN-Ld/Zenith/issues).
+Bug reports and feature requests welcome via [GitHub Issues](https://github.com/ArN-LaB/Zenith/issues).
 
-- Test logic / CLI changes → [vpn-tools](https://github.com/ArN-Ld/vpn-tools)
+- Test logic / CLI changes → [vpn-tools](https://github.com/ArN-LaB/vpn-tools)
 - macOS UI / Swift changes → this repo
 
 When `vpn-tools` ships a protocol change, update `SpeedTestRunner.swift` and
@@ -169,4 +169,4 @@ with a `> Prérequis vpn-tools :` note.
 ## License
 
 MIT — see [LICENSE](LICENSE).
-Bundles [vpn-tools](https://github.com/ArN-Ld/vpn-tools) — MIT License © 2025 Valera.
+Bundles [vpn-tools](https://github.com/ArN-LaB/vpn-tools) — MIT License © 2025 Valera.

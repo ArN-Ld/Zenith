@@ -307,7 +307,7 @@ struct MenuBarView: View {
                 if updateChecker.updateAvailable, let v = updateChecker.latestVersion {
                     MenuBarButton(title: "Update \(v) available", icon: "arrow.down.circle.fill", color: .green) {
                         NSWorkspace.shared.open(
-                            URL(string: "https://github.com/ArN-Ld/Zenith/releases/latest")!
+                            URL(string: "https://github.com/ArN-LaB/Zenith/releases/latest")!
                         )
                     }
                 }

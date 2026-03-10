@@ -56,12 +56,12 @@ struct AboutView: View {
                     linkRow(
                         icon: "chevron.left.forwardslash.chevron.right",
                         label: "Zenith — source code",
-                        url: "https://github.com/ArN-Ld/Zenith"
+                        url: "https://github.com/ArN-LaB/Zenith"
                     )
                     linkRow(
                         icon: "terminal",
                         label: "vpn-tools — Python CLI",
-                        url: "https://github.com/ArN-Ld/vpn-tools"
+                        url: "https://github.com/ArN-LaB/vpn-tools"
                     )
                     linkRow(
                         icon: "lock.shield",
@@ -91,7 +91,7 @@ struct AboutView: View {
 
                 // MARK: - License
                 VStack(spacing: 6) {
-                    Text("MIT License — © 2026 ArN-Ld")
+                    Text("MIT License — © 2026 ArN-LaB")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Text("Bundles vpn-tools — © 2025 Valera — MIT License")
@@ -99,7 +99,7 @@ struct AboutView: View {
                         .foregroundStyle(.tertiary)
                     Button("View full license on GitHub") {
                         NSWorkspace.shared.open(
-                            URL(string: "https://github.com/ArN-Ld/Zenith/blob/main/LICENSE")!
+                            URL(string: "https://github.com/ArN-LaB/Zenith/blob/main/LICENSE")!
                         )
                     }
                     .font(.caption2)
@@ -122,7 +122,7 @@ struct AboutView: View {
         } else if updateChecker.updateAvailable, let v = updateChecker.latestVersion {
             Button {
                 NSWorkspace.shared.open(
-                    URL(string: "https://github.com/ArN-Ld/Zenith/releases/latest")!
+                    URL(string: "https://github.com/ArN-LaB/Zenith/releases/latest")!
                 )
             } label: {
                 Label("v\(v) available", systemImage: "arrow.down.circle.fill")

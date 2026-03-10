@@ -29,5 +29,5 @@ body:
   - type: markdown
     attributes:
       value: |
-        > **Note**: Test logic and CLI changes belong in [vpn-tools](https://github.com/ArN-Ld/vpn-tools).
+        > **Note**: Test logic and CLI changes belong in [vpn-tools](https://github.com/ArN-LaB/vpn-tools).
         > This project is the macOS frontend only.
