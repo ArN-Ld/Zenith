@@ -33,22 +33,10 @@ The name comes from astronomy: the **zenith** is the highest point in the sky �
 - Python 3.9+ with `speedtest-cli` and `geopy` — bundled automatically by `build_app.sh`
 - `mtr` — `brew install mtr` *(optional — ping fallback activates automatically if missing or misconfigured)*
 
-### mtr note (Homebrew)
+### mtr note
 
-`mtr` requires raw sockets, which need root privileges. When installed via bottle
-(`brew install mtr`), `mtr-packet` has no SUID bit — `sudo mtr` works as expected.
-
-When built from source (`brew install --build-from-source mtr`), the upstream
-[Makefile](https://github.com/traviscross/mtr/blob/v0.96/Makefile.am#L43-L45) sets a
-SUID bit on `mtr-packet` owned by the build user (not root), which **breaks** both
-`mtr` and `sudo mtr`. The app automatically uses ping fallback in that case.
-
-To fix MTR after a source build:
-
-```bash
-sudo chown root:wheel $(brew --prefix)/Cellar/mtr/0.96/sbin/mtr-packet
-sudo chmod 4755 $(brew --prefix)/Cellar/mtr/0.96/sbin/mtr-packet
-```
+`mtr` is optional — if it's missing or misconfigured, the app automatically falls back to `ping`.
+Install via `brew install mtr` and Zenith will use it for latency measurements.
 
 ---
 
