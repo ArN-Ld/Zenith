@@ -18,7 +18,7 @@ The name comes from astronomy: the **zenith** is the highest point in the sky �
 - **Multi-step pipeline**: MTR latency → download speed calibration → server ranking
 - **Results table** — sortable by city, distance, latency, speed, score
 - **Live log** — per-server event stream in real time
-- **Ping fallback** — automatic when `mtr-packet` has a Homebrew ownership issue (see below)
+- **Ping fallback** — automatic when `mtr` is missing or misconfigured
 - **Adaptive timeout** — 150 s for servers ≥ 3 000 km away
 - **Settings** — reference location geocoder with autocomplete, test parameters, path configuration
 - **System preflight** — checks `mtr`, `speedtest-cli`, `mullvad` CLI, and Python at startup

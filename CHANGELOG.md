@@ -40,4 +40,6 @@ All notable changes to Zenith are documented in this file.
 - 38 phases documented in [DEVLOG.md](DEVLOG.md), from initial audit through UI/UX redesign, JSON protocol migration, location geocoding, and mtr-packet SUID root cause analysis.
 
 ### Known Compatibility
-- **macOS Homebrew mtr 0.96**: `brew install mtr` may leave `mtr-packet` with incorrect SUID setup (owned by the installing user, not root). Zenith automatically uses ping fallback in this case. See [README § Requirements](README.md#requirements) for the fix.
+
+`mtr` is optional—if missing or misconfigured, Zenith automatically falls back to `ping` for latency measurements.
+Install via `brew install mtr` to enable MTR-based measurements.
